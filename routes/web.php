@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -36,6 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/posts/{id}/update', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{id}/destroy', [PostController::class, 'destroy'])->name('posts.delete');
+
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('', [CategoryController::class, 'index'])->name('index');
+        Route::get('create', [CategoryController::class, 'create'])->name('create');
+        Route::get('{id}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::get('{id}/destroy', [CategoryController::class, 'destroy'])->name('delete');
+    });
 });
 
 
