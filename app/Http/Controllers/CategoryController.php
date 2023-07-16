@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index () {
-        return 'categories index';
+        $categories = Category::all();
+        return view('category.index', ['categories' => $categories]);
     }
 
     public function create () {
-        return 'categories create';
+        return view('category.create');
+    }
+
+    public function store(Request $request)
+    {
+        Category::create([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('categories.index');
     }
 
     public function edit ($id) {
