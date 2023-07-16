@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::get('create', [CategoryController::class, 'create'])->name('create');
         Route::post('store', [CategoryController::class, 'store'])->name('store');
         Route::get('{id}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::put('{id}/update', [CategoryController::class, 'update'])->name('update');
         Route::get('{id}/destroy', [CategoryController::class, 'destroy'])->name('delete');
     });
 });

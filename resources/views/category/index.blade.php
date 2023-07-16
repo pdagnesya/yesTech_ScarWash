@@ -37,7 +37,10 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $category->name }}</td>
-                                            <td></td>
+                                            <td>
+                                                <a href="{{ route('categories.edit', ['id' => $category->id]) }}">Edit</a>
+                                                <a href="{{ route('categories.delete', ['id' => $category->id]) }}">Delete</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
