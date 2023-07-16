@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,8 +25,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
-        return view('post.create');
+        $categories = Category::all();
+        return view('post.create', ['categories' => $categories]);
     }
 
     /**
@@ -41,13 +43,26 @@ class PostController extends Controller
             $banner_image = $filename;
         }
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'body' => $request->body,
             'banner_image' => $banner_image,
             'author_id' => Auth::user()->id,
             'slug' => $this->createSlug($request->title)
         ]);
+
+        $data = [];
+        foreach($request->category_ids as $category_id) {
+            $row = [
+                'post_id' => $post->id, 
+                'category_id' => $category_id, 
+                'created_at' => date('Y-m-d H:i:s', time()), 
+                'updated_at' => date('Y-m-d H:i:s', time())
+            ];
+            array_push($data, $row);
+        }
+
+        PostCategory::insert($data);
 
         return redirect()->route('posts.index');
     }
@@ -72,9 +87,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all();
         $post = Post::find($id);
-        return view('post.edit', compact('post'));
+        return view('post.edit', compact('post', 'categories'));
     }
 
     /**
@@ -97,6 +112,21 @@ class PostController extends Controller
         }
 
         $post->save();
+
+        PostCategory::where('post_id', $post->id)->delete();
+
+        $data = [];
+        foreach($request->category_ids as $category_id) {
+            $row = [
+                'post_id' => $post->id, 
+                'category_id' => $category_id, 
+                'created_at' => date('Y-m-d H:i:s', time()), 
+                'updated_at' => date('Y-m-d H:i:s', time())
+            ];
+            array_push($data, $row);
+        }
+
+        PostCategory::insert($data);
 
         return redirect()->route('posts.index');
     }

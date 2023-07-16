@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+    
+    @yield('css-content')
 
     {{-- TinyMCE --}}
     <script src="https://cdn.tiny.cloud/1/erq06dotgrcn3zvg88ch2jqyq96mk1wxf1novyvjygzeobi6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
