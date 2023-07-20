@@ -19,14 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PublicPageController::class, 'homepage'])->name('homepage');
-Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-Route::get('/login', [LoginController::class, 'index'])->name('login.index');
-Route::post('/login', [LoginController::class, 'login'])->name('login.auth');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/{slug}', [PublicPageController::class, 'show'])->name('show');
-
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('index');
@@ -56,3 +48,12 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('{id}/destroy', [CategoryController::class, 'destroy'])->name('delete');
     });
 });
+
+
+Route::get('/', [PublicPageController::class, 'homepage'])->name('homepage');
+Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::post('/login', [LoginController::class, 'login'])->name('login.auth');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/{slug}', [PublicPageController::class, 'show'])->name('show');
