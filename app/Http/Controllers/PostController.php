@@ -52,14 +52,16 @@ class PostController extends Controller
         ]);
 
         $data = [];
-        foreach($request->category_ids as $category_id) {
-            $row = [
-                'post_id' => $post->id, 
-                'category_id' => $category_id, 
-                'created_at' => date('Y-m-d H:i:s', time()), 
-                'updated_at' => date('Y-m-d H:i:s', time())
-            ];
-            array_push($data, $row);
+        if($request->category_ids) {
+            foreach($request->category_ids as $category_id) {
+                $row = [
+                    'post_id' => $post->id, 
+                    'category_id' => $category_id, 
+                    'created_at' => date('Y-m-d H:i:s', time()), 
+                    'updated_at' => date('Y-m-d H:i:s', time())
+                ];
+                array_push($data, $row);
+            }
         }
 
         PostCategory::insert($data);
