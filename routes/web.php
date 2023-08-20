@@ -51,6 +51,9 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
 
 Route::get('/', [PublicPageController::class, 'homepage'])->name('homepage');
+Route::get('/blog', [PublicPageController::class, 'blog'])->name('blog');
+Route::get('/location', [PublicPageController::class, 'location'])->name('location');
+Route::get('/pricelist', [PublicPageController::class, 'pricelist'])->name('pricelist');
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');

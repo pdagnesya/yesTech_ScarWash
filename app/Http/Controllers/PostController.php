@@ -38,7 +38,7 @@ class PostController extends Controller
         $banner_image = null;
         if ($request->file('banner_image')) {
             $file = $request->file('banner_image');
-            $filename = date('dmY') . '.' . $file->getClientOriginalExtension();
+            $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads'), $filename);
             $banner_image = $filename;
         }
